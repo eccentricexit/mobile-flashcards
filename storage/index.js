@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-const STORE_KEY = 'asdf'
+const STORE_KEY = 'mobile-flashcards'
 
 export const isStorageInitialized = async () => {
   const state = await getState()
