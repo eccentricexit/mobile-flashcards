@@ -5,35 +5,39 @@ import { connect } from 'react-redux'
 import { setState } from '../actions'
 
 class NewDeck extends Component {
-  static navigationOptions = {
-    title: 'Create New Deck',
-  }
-
-  state = {
-    deck: {
-      name: '',
-      questions: []
+  static navigationOptions = ({ navigation }) => {
+    const deck = navigation.getParam('deck',{})
+    const title = deck.name ? `${deck.name} | New card` : 'New card'
+    return {
+      title
     }
   }
 
+  state = {
+    question: '',
+    answer: ''
+  }
+
   handleSubmit = async () => {
-    await persistDeck(this.state.deck)    
+    const { navigation } = this.props
+    const deck = navigation.getParam('deck',{})
+    deck.questions.push(this.state)
+    await persistDeck(deck)
     const state = await getState()
     this.props.setState(state)
-    this.props.navigation.goBack()
+    navigation.goBack()
   }
 
   render () {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>What is the title of the new deck?</Text>
         <TextInput
-          placeholder="Deck title"
-          onChangeText={(text) => {
-            const { deck } = this.state
-            deck.name = text
-            this.setState({ deck })
-          }}
+          placeholder="Enter the question"
+          onChangeText={(text) => this.setState({ question: text })}
+        />
+        <TextInput
+          placeholder="Enter the answer"
+          onChangeText={(text) => this.setState({ answer: text })}
         />
         <Button title='Submit' onPress={this.handleSubmit}/>
       </View>
