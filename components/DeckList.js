@@ -41,13 +41,16 @@ class DeckList extends Component {
         decks.push(this.props.state[key])
       })
     }
-    decks.push({key: 'New Deck'})
+    decks.push({name: 'New Deck'})
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <FlatList
           data={decks}
-          renderItem={({item}) => <DeckListItem {...this.props} deck={item}/>}
+          keyExtractor={item => item.name}
+          renderItem={({item}) => (
+            <DeckListItem {...this.props} deck={item}/>
+          )}
         />
       </View>
     )
@@ -57,7 +60,7 @@ class DeckList extends Component {
 const DeckListItem = (props) => {
   const { deck } = props
 
-  if(deck.key === 'New Deck'){
+  if(deck.name === 'New Deck'){
     return (
       <Button
         title='New Deck'
@@ -68,7 +71,7 @@ const DeckListItem = (props) => {
 
   return (
     <Button
-      title={deck.key}
+      title={deck.name}
       onPress={() => props.navigation.push('Deck',{ deck })}
     />
   )

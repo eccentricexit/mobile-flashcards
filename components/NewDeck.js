@@ -11,7 +11,7 @@ class NewDeck extends Component {
 
   state = {
     deck: {
-      key: ''
+      name: ''
     }
   }
 
@@ -30,7 +30,7 @@ class NewDeck extends Component {
           placeholder="Deck title"
           onChangeText={(text) => this.setState({
             deck:{
-              key: text
+              name: text
             }
           })}
         />

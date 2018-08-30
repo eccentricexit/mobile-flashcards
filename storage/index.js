@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-const STORE_KEY = 'flashcards-mts'
+const STORE_KEY = 'asdf'
 
 export const isStorageInitialized = async () => {
   const state = await getState()
@@ -10,7 +10,7 @@ export const initStorage = async () => {
   const decks = getDefaultDecks()
   const initialState = {}
   decks.map(deck => {
-    initialState[deck.key] = deck
+    initialState[deck.name] = deck
   })
   await storeState(initialState)
 }
@@ -32,7 +32,7 @@ export const persistDeck = async (deck) => {
   const prevState = await getState()
   const newState = {
     ...prevState,
-    [deck.key]: deck
+    [deck.name]: deck
   }
   await storeState(newState)
 }
@@ -57,11 +57,11 @@ export const storeState = async (state) => {
 
 const getDefaultDecks = () => {
   return [
-    {key: 'MongoDB'},
-    {key: 'React'},
-    {key: 'React Native'},
-    {key: 'Solidity'},
-    {key: 'L2 Scaling'}    
+    {name: 'MongoDB', questions:[]},
+    {name: 'React', questions:[]},
+    {name: 'React Native', questions:[]},
+    {name: 'Solidity', questions:[]},
+    {name: 'L2 Scaling', questions:[]}
   ]
 }
 
