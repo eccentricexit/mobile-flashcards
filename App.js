@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { createStackNavigator } from 'react-navigation'
 import Deck from './components/Deck'
 import DeckList from './components/DeckList'
 import Quiz from './components/Quiz'
 import NewDeck from './components/NewDeck'
+import { createStore } from 'redux'
+import reducer from './reducer'
+import { Provider } from 'react-redux'
+
+
+const store = createStore(reducer)
 
 const RootStack = createStackNavigator(
   {
@@ -17,4 +23,14 @@ const RootStack = createStackNavigator(
   }
 )
 
-export default RootStack
+class App extends Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    )
+  }
+}
+
+export default App

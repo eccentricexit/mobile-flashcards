@@ -1,15 +1,47 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TextInput, Button } from 'react-native'
+import { persistDeck, getState } from '../storage'
+import { connect } from 'react-redux'
+import { setState } from '../actions'
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
   static navigationOptions = {
     title: 'Create New Deck',
   }
+
+  state = {
+    deck: {
+      key: ''
+    }
+  }
+
+  handleSubmit = async () => {
+    await persistDeck(this.state.deck)    
+    const state = await getState()
+    this.props.setState(state)
+    this.props.navigation.goBack()
+  }
+
   render () {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Hello from Create New Deck</Text>
+        <Text>What is the title of the new deck?</Text>
+        <TextInput
+          placeholder="Deck title"
+          onChangeText={(text) => this.setState({
+            deck:{
+              key: text
+            }
+          })}
+        />
+        <Button title='Submit' onPress={this.handleSubmit}/>
       </View>
     )
   }
 }
+
+function mapStateToProps ({ state }) {
+  return { state }
+}
+
+export default connect(mapStateToProps, { setState })(NewDeck)

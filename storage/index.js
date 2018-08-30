@@ -1,5 +1,10 @@
 import { AsyncStorage } from 'react-native'
-const STORE_KEY = '@mobile-flashcards-mts'
+const STORE_KEY = 'flashcards-mts'
+
+export const isStorageInitialized = async () => {
+  const state = await getState()
+  return state !== null
+}
 
 export const initStorage = async () => {
   const decks = getDefaultDecks()
@@ -32,11 +37,17 @@ export const persistDeck = async (deck) => {
   await storeState(newState)
 }
 
-const getState = async () => {
-  return JSON.parse(await AsyncStorage.getItem(STORE_KEY))
+export const getState = async () => {
+  try{
+    const serializedState = await AsyncStorage.getItem(STORE_KEY)
+    return JSON.parse(serializedState)
+  }catch(e){
+    console.error('Error getting state:',e)
+    return null
+  }
 }
 
-const storeState = async (state) => {
+export const storeState = async (state) => {
   const serializedState = JSON.stringify(state)
   return await AsyncStorage.setItem(
     STORE_KEY, 
