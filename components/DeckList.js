@@ -1,19 +1,40 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, View, Button } from 'react-native'
+import { FlatList, StyleSheet, View, Button, Text } from 'react-native'
+import { getDecks, initStorage } from '../storage'
 
 export default class DeckList extends Component {
   static navigationOptions = {
     title: 'My Decks',
   }
+
+  state = {
+    isLoading: true
+  }  
+
+  componentDidMount () {
+    const ctx = this
+    initStorage().then(() => {
+      getDecks().then(decks => {
+        ctx.setState({ decks, isLoading: false })        
+      })      
+    })
+  }
+
   render () {
-    const decks = [
-      {key: 'MongoDB'},
-      {key: 'React'},
-      {key: 'React Native'},
-      {key: 'Solidity'},
-      {key: 'L2 Scaling'},
-      {key: 'New Deck'}
-    ]
+    const { isLoading } = this.state
+
+    if(isLoading){
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>
+            Loading... 
+          </Text>
+        </View>
+      )
+    }
+
+    const { decks } = this.state
+    decks.push({key: 'New Deck'})
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
