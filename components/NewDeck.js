@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native'
-import { persistDeck, getState } from '../storage'
+import { persistDeck, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
 

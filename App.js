@@ -8,6 +8,9 @@ import NewCard from './components/NewCard'
 import { createStore } from 'redux'
 import reducer from './reducer'
 import { Provider } from 'react-redux'
+import { askNotifPermissionStatus, updateNotif } from './utils'
+import { Permissions } from 'expo'
+
 
 const store = createStore(reducer)
 
@@ -25,6 +28,16 @@ const RootStack = createStackNavigator(
 )
 
 class App extends Component {
+  async componentDidMount () {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+    console.info('permission status:',status)
+    if(status === 'undetermined'){
+      await askNotifPermissionStatus()
+    }else if (status === 'granted') {      
+      console.info('notifId',await updateNotif())
+    }
+  }
+
   render () {
     return (
       <Provider store={store}>

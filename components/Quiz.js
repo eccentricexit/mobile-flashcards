@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
+import { updateNotif } from '../utils'
 
 class Quiz extends Component {
   static navigationOptions = {
@@ -14,16 +15,21 @@ class Quiz extends Component {
     deck: null
   }
 
-  handleSubmitAnswer = (answer) => {
+  handleSubmitAnswer = async (answer) => {
     const { deck, currQuestionPos, numCorrectAnswers } = this.state
     
     if(answer === deck.questions[currQuestionPos].answer.toLowerCase()){
       this.setState({numCorrectAnswers: numCorrectAnswers + 1})
     }
+
     this.setState({ 
       currQuestionPos: currQuestionPos + 1, 
       showAnswer: false
     })
+
+    if(currentQuestionPos+1 === deck.questions.length){
+      await updateNotif()
+    }
   }
 
   handleShowAnswer = () => {

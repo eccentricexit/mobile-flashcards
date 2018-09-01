@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FlatList, View, Button, Text } from 'react-native'
-import { getDecks, initStorage, isStorageInitialized, getState } from '../storage'
+import { getDecks, initStorage, isStorageInitialized, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
 
