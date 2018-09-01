@@ -10,6 +10,7 @@ class Quiz extends Component {
   state = {
     currQuestionPos: 0,
     numCorrectAnswers: 0,
+    showAnswer: false,
     deck: null
   }
 
@@ -27,6 +28,19 @@ class Quiz extends Component {
 
   handleShowAnswer = () => {
     this.setState({showAnswer: true})
+  }
+
+  handleStartOver = () => {
+    this.setState({
+      currQuestionPos: 0,
+      numCorrectAnswers: 0,
+      showAnswer: false 
+    })
+  }
+
+  handleBack = () => {
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   componentDidMount () {
@@ -48,6 +62,8 @@ class Quiz extends Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Game over</Text>
           <Text>You got {`${score}% correct answers.`}</Text>
+          <Button title='Restart Quiz' onPress={() => this.handleStartOver()} />
+          <Button title='Back to Deck' onPress={() => this.handleBack()} />
         </View>
       )
     }
