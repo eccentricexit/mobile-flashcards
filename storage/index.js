@@ -18,7 +18,7 @@ export const initStorage = async () => {
 export const getDecks = async () => {
   const state = await getState()
   const keys = Object.keys(state)
-  if(!keys){ return [] }
+  if (!keys) { return [] }
 
   const decks = []
   keys.map(key => {
@@ -38,11 +38,11 @@ export const persistDeck = async (deck) => {
 }
 
 export const getState = async () => {
-  try{
+  try {
     const serializedState = await AsyncStorage.getItem(STORE_KEY)
     return JSON.parse(serializedState)
-  }catch(e){
-    console.error('Error getting state:',e)
+  } catch (e) {
+    console.error('Error getting state:', e)
     return null
   }
 }
@@ -50,20 +50,17 @@ export const getState = async () => {
 export const storeState = async (state) => {
   const serializedState = JSON.stringify(state)
   return await AsyncStorage.setItem(
-    STORE_KEY, 
+    STORE_KEY,
     serializedState
-  ) 
+  )
 }
 
 const getDefaultDecks = () => {
   return [
-    {name: 'MongoDB', questions:[]},
-    {name: 'React', questions:[]},
-    {name: 'React Native', questions:[]},
-    {name: 'Solidity', questions:[]},
-    {name: 'L2 Scaling', questions:[]}
+    {name: 'MongoDB', questions: []},
+    {name: 'React', questions: []},
+    {name: 'React Native', questions: []},
+    {name: 'Solidity', questions: []},
+    {name: 'L2 Scaling', questions: []}
   ]
 }
-
-
-

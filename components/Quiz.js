@@ -15,16 +15,21 @@ class Quiz extends Component {
 
   handleSubmitAnswer = (answer) => {
     const { deck, currQuestionPos, numCorrectAnswers } = this.state
-    console.info('answer clicked: ',answer)
-    console.info('correct ans', deck.questions[currQuestionPos].answer)
-
+    
     if(answer === deck.questions[currQuestionPos].answer.toLowerCase()){
       this.setState({numCorrectAnswers: numCorrectAnswers + 1})
     }
-    this.setState({ currQuestionPos: currQuestionPos + 1})
+    this.setState({ 
+      currQuestionPos: currQuestionPos + 1, 
+      showAnswer: false
+    })
   }
 
-  async componentDidMount () {
+  handleShowAnswer = () => {
+    this.setState({showAnswer: true})
+  }
+
+  componentDidMount () {
     const deck = this.props.navigation.getParam('deck',{})
     this.setState({ deck })
   }
@@ -53,8 +58,10 @@ class Quiz extends Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>{`${currQuestionPos}/${totalNumQuestions}`}</Text>
         <Text>{currQuestion.question}</Text>
+        {this.state.showAnswer && <Text>{currQuestion.answer}</Text>}
         <Button title='Yes' onPress={() => this.handleSubmitAnswer('yes')} />
         <Button title='No' onPress={() => this.handleSubmitAnswer('no')} />
+        <Button title='Show answer' onPress={() => this.handleShowAnswer()} />
       </View>
     )
   }

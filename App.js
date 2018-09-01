@@ -9,7 +9,6 @@ import { createStore } from 'redux'
 import reducer from './reducer'
 import { Provider } from 'react-redux'
 
-
 const store = createStore(reducer)
 
 const RootStack = createStackNavigator(
@@ -21,7 +20,7 @@ const RootStack = createStackNavigator(
     NewCard: { screen: NewCard }
   },
   {
-    initialRouteName: 'DeckList',
+    initialRouteName: 'DeckList'
   }
 )
 
