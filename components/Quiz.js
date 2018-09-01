@@ -38,10 +38,11 @@ class Quiz extends Component {
     const totalNumQuestions = deck.questions.length
     if(currQuestionPos >= totalNumQuestions){
       // game is over
+      const score = ((numCorrectAnswers/totalNumQuestions)*100).toFixed(0)
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Game over</Text>
-          <Text>You got {`${numCorrectAnswers}/${totalNumQuestions} correct answers.`}</Text>
+          <Text>You got {`${score}% correct answers.`}</Text>
         </View>
       )
     }
