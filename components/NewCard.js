@@ -37,7 +37,7 @@ class NewDeck extends Component {
         />
         <TextInput
           placeholder="Enter the answer"
-          onChangeText={(text) => this.setState({ answer: text })}
+          onChangeText={(text) => this.setState({ answer: text.toLowerCase() })}
         />
         <Button title='Submit' onPress={this.handleSubmit}/>
       </View>

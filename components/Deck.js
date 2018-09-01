@@ -20,7 +20,8 @@ class Deck extends Component {
 
   handleStartQuiz = async () => {
     const { navigation } = this.props
-    navigation.push('Quiz')
+    const deck = navigation.getParam('deck',{})
+    navigation.push('Quiz',{ deck })
   }
 
   render () {
