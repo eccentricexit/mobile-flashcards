@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
-import { primary, white } from '../utils/colors'
+import { primary, primaryText, primaryLight, white } from '../utils/colors'
+import { 
+  TouchableOpacity,
+  FlatList,
+  View,
+  Text,
+  StyleSheet,
+  Platform
+} from 'react-native'
 
 class Deck extends Component {  
   static navigationOptions = ({ navigation }) => {
@@ -41,16 +48,87 @@ class Deck extends Component {
     const deck = state[deckName]
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Hello from Deck. This is {deck.name}</Text>
-        <Text>{deck.questions ? deck.questions.length : 0} cards</Text>
-        <Button title='Add Card' onPress={this.handleAddCard}/>
-        { deck.questions.length > 0 && 
-          <Button title='Start Quiz' onPress={this.handleStartQuiz}/>
+        <Text style={styles.deckTitle}>{deck.name}</Text>
+        <Text style={styles.cardCount}>{deck.questions ? deck.questions.length : 0} cards</Text>
+
+        <TouchableOpacity 
+          onPress={this.handleAddCard}
+          style={Platform.OS === 'ios' 
+            ? styles.iosSubmitBtn 
+            : styles.androidPrimaryBtn
+          }
+        >
+          <Text style={{
+              color: white,
+              textAlign: 'center',
+              fontSize:20
+            }}
+          >
+            Add Card
+          </Text>
+        </TouchableOpacity>
+
+        {deck.questions.length > 0 &&           
+          <TouchableOpacity 
+            onPress={this.handleStartQuiz}
+            style={Platform.OS === 'ios' 
+              ? styles.iosSubmitBtn 
+              : styles.androidSecondaryBtn
+            }
+          >
+            <Text style={{
+                fontSize:20,
+                textAlign: 'center',
+              }}
+            >Start Quiz</Text>
+          </TouchableOpacity>
         }
       </View>
     )
   }
 }
+
+const androidPrimaryBtn = {
+  backgroundColor: primary,
+  padding: 10,
+  paddingLeft: 30,
+  paddingRight: 30,
+  width:250,
+  height: 84,
+  borderRadius: 4,
+  justifyContent: 'center',
+  alignItems: 'stretch',
+  elevation:1,
+  marginBottom:16
+}
+
+const androidSecondaryBtn = {
+  ...androidPrimaryBtn,
+  backgroundColor: white,  
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  iosSubmitBtn: {
+    backgroundColor: primary,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,    
+  },
+  androidPrimaryBtn,
+  androidSecondaryBtn,  
+  deckTitle:{
+    fontSize: 42,
+    marginBottom: 12    
+  },
+  cardCount:{
+    fontSize: 22,
+    color: primaryLight,
+    marginBottom:120
+  }
+})
 
 function mapStateToProps ({ state }) {
   return { state }
