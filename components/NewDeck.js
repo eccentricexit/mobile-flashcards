@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { persistDeck, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
-import { primary, primaryLight, white } from '../utils/colors'
+import { primary, white } from '../utils/colors'
 import { 
   TouchableOpacity,
   View,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop:100,
     marginBottom:100,
-    width:250
+    width:300
   }
 })
 

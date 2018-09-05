@@ -88,6 +88,26 @@ class Deck extends Component {
   }
 }
 
+const androidPrimaryBtn = {
+  backgroundColor: primary,
+  padding: 10,
+  paddingLeft: 30,
+  paddingRight: 30,
+  width:250,
+  height: 84,
+  borderRadius: 4,
+  justifyContent: 'center',
+  alignItems: 'stretch',
+  elevation:2,
+  marginBottom:16
+}
+
+const androidSecondaryBtn = {
+  ...androidPrimaryBtn,
+  backgroundColor: white
+}
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -98,19 +118,8 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     height: 45,    
   },
-  androidPrimaryBtn: {
-    backgroundColor: primary,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    width:250,
-    height: 84,
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    elevation:2,
-    marginBottom:16
-  }, 
+  androidPrimaryBtn, 
+  androidSecondaryBtn,
   deckTitle:{
     fontSize: 42,
     marginBottom: 12    
