@@ -2,14 +2,25 @@ import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
+import { primary, white } from '../utils/colors'
 
 class Deck extends Component {  
   static navigationOptions = ({ navigation }) => {
     const deck = navigation.getParam('deck',{})
     const title = deck.name ? deck.name : 'A deck screen'
-    return {
-      title
+    const headerTitleStyle = {
+      color: white
     }
+    const headerStyle = {
+      backgroundColor: primary,
+      
+    }    
+    return {
+      title,
+      headerStyle,
+      headerTitleStyle,
+      headerTintColor: white
+    }    
   }
 
   handleAddCard = async () => {

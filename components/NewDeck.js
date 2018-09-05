@@ -3,10 +3,17 @@ import { Text, View, TextInput, Button } from 'react-native'
 import { persistDeck, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
+import { primary, white } from '../utils/colors'
 
 class NewDeck extends Component {
   static navigationOptions = {
     title: 'Create New Deck',
+    headerTitleStyle: {
+      color: white
+    },
+    headerStyle: {
+      backgroundColor: primary
+    },
   }
 
   state = {

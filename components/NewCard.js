@@ -3,14 +3,25 @@ import { Text, View, TextInput, Button } from 'react-native'
 import { persistDeck, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
+import { primary, white } from '../utils/colors'
 
 class NewDeck extends Component {
   static navigationOptions = ({ navigation }) => {
     const deck = navigation.getParam('deck',{})
     const title = deck.name ? `${deck.name} | New card` : 'New card'
-    return {
-      title
+    const headerTitleStyle = {
+      color: white
     }
+    const headerStyle = {
+      backgroundColor: primary,
+      
+    }    
+    return {
+      title,
+      headerStyle,
+      headerTitleStyle,
+      headerTintColor: white
+    } 
   }
 
   state = {

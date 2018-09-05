@@ -2,10 +2,17 @@ import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { updateNotif } from '../utils'
+import { primary, white } from '../utils/colors'
 
 class Quiz extends Component {
   static navigationOptions = {
-    title: 'Quiz',    
+    title: 'Quiz',
+    headerTitleStyle: {
+      color: white
+    },
+    headerStyle: {
+      backgroundColor: primary
+    },
   }
 
   state = {
