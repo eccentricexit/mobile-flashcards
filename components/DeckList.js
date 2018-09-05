@@ -97,10 +97,10 @@ const DeckListItem = (props) => {
 
   return (
     <TouchableOpacity
-    style={Platform.OS === 'ios' 
-      ? styles.iosSubmitBtn 
-      : styles.androidSecondaryBtn
-    }
+      style={Platform.OS === 'ios' 
+        ? styles.iosSubmitBtn 
+        : styles.androidSecondaryBtn
+      }
       onPress={() => props.navigation.push('Deck',{ deck })}
     >
       <Text style={styles.deck}>{deck.name}</Text>
@@ -119,7 +119,7 @@ const androidPrimaryBtn = {
   paddingLeft: 30,
   paddingRight: 30,
   height: 85,
-  borderRadius: 2,
+  borderRadius: 4,
   justifyContent: 'center',
   alignItems: 'stretch',
 }

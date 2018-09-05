@@ -98,7 +98,7 @@ const androidPrimaryBtn = {
   borderRadius: 4,
   justifyContent: 'center',
   alignItems: 'stretch',
-  elevation:1,
+  elevation:2,
   marginBottom:16
 }
 
