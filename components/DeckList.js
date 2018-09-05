@@ -119,7 +119,6 @@ const androidPrimaryBtn = {
   paddingLeft: 30,
   paddingRight: 30,
   height: 85,
-  borderRadius: 4,
   justifyContent: 'center',
   alignItems: 'stretch',
 }
