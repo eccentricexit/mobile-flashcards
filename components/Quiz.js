@@ -32,7 +32,7 @@ class Quiz extends Component {
   handleSubmitAnswer = async (answer) => {
     const { deck, currQuestionPos, numCorrectAnswers } = this.state
     
-    if(answer === deck.questions[currQuestionPos].answer.toLowerCase()){
+    if(answer === 'correct'){
       this.setState({numCorrectAnswers: numCorrectAnswers + 1})
     }
 
@@ -99,25 +99,25 @@ class Quiz extends Component {
         <Text style={styles.title}>{currQuestion.question}</Text>
         <Text style={styles.textMuted}>{`${currQuestionPos}/${totalNumQuestions}`}</Text>
         {this.state.showAnswer && <Text style={[styles.answer, {marginTop: 12}]}>{currQuestion.answer}</Text>}
-        <TouchableOpacity 
-          onPress={() => this.handleSubmitAnswer('yes')}
+        {this.state.showAnswer && <TouchableOpacity 
+          onPress={() => this.handleSubmitAnswer('correct')}
           style={[Platform.OS === 'ios' 
             ? styles.iosSubmitBtn 
             : styles.androidPrimaryBtn
           ,{backgroundColor: success, marginTop: 120}]}
         >
-          <Text style={styles.textBtn}>Yes</Text>
-        </TouchableOpacity>        
-        <TouchableOpacity 
-          onPress={() => this.handleSubmitAnswer('no')}
+          <Text style={styles.textBtn}>Correct</Text>
+        </TouchableOpacity>}
+        {this.state.showAnswer && <TouchableOpacity 
+          onPress={() => this.handleSubmitAnswer('incorrect')}
           style={[Platform.OS === 'ios' 
             ? styles.iosSubmitBtn 
             : styles.androidPrimaryBtn
           ,{backgroundColor: danger}]}
         >
-          <Text style={styles.textBtn}>No</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
+          <Text style={styles.textBtn}>Incorrect</Text>
+        </TouchableOpacity>}
+        {!this.state.showAnswer &&<TouchableOpacity 
           onPress={() => this.handleShowAnswer()}
           style={[Platform.OS === 'ios' 
             ? styles.iosSubmitBtn 
@@ -125,7 +125,7 @@ class Quiz extends Component {
           ,{marginTop: 28}]}
         >
           <Text style={styles.textBtn}>Show answer</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
     )
   }
