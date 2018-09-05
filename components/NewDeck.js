@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, Button } from 'react-native'
 import { persistDeck, getState } from '../utils'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
-import { primary, white } from '../utils/colors'
+import { primary, primaryLight, white } from '../utils/colors'
+import { 
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TextInput
+} from 'react-native'
 
 class NewDeck extends Component {
   static navigationOptions = {
@@ -14,6 +21,7 @@ class NewDeck extends Component {
     headerStyle: {
       backgroundColor: primary
     },
+    headerTintColor: white
   }
 
   state = {
@@ -24,6 +32,11 @@ class NewDeck extends Component {
   }
 
   handleSubmit = async () => {
+    if(this.state.deck.name.length===0){
+      alert('A name is required 🤷')
+      return
+    }
+
     await persistDeck(this.state.deck)    
     const state = await getState()
     this.props.setState(state)
@@ -33,7 +46,7 @@ class NewDeck extends Component {
   render () {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>What is the title of the new deck?</Text>
+        <Text style={styles.title}>What is the title of the new deck?</Text>
         <TextInput
           placeholder="Deck title"
           onChangeText={(text) => {
@@ -41,12 +54,63 @@ class NewDeck extends Component {
             deck.name = text
             this.setState({ deck })
           }}
+          style={styles.input}
         />
-        <Button title='Submit' onPress={this.handleSubmit}/>
+        <TouchableOpacity           
+          onPress={this.handleSubmit}
+          style={Platform.OS === 'ios' 
+            ? styles.iosSubmitBtn 
+            : styles.androidPrimaryBtn
+          }
+        >
+          <Text style={styles.textBtn}>🎴 Submit</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  iosSubmitBtn: {
+    backgroundColor: primary,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,    
+  },
+  androidPrimaryBtn: {
+    backgroundColor: primary,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: 250,
+    height: 65,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    elevation:2,
+    marginTop:8
+  },
+  title: {
+    fontSize: 42,
+    paddingLeft:30,
+    paddingRight:30,
+    textAlign: 'center'
+  },
+  textBtn: {    
+    fontSize:20,
+    color: white,
+    textAlign: 'center'
+  },
+  input: {
+    fontSize: 30,
+    marginTop:100,
+    marginBottom:100,
+    width:250
+  }
+})
 
 function mapStateToProps ({ state }) {
   return { state }
