@@ -80,13 +80,26 @@ class Quiz extends Component {
       const score = ((numCorrectAnswers/totalNumQuestions)*100).toFixed(0)
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Game over</Text>
-          <Text>You got {`${score}% correct answers.`}</Text>
-          <TouchableOpacity onPress={() => this.handleStartOver()}>
-            <Text>Restart Quiz</Text>
+          <Text style={styles.gameOver}>🎉</Text>
+          <Text style={styles.gameOver}>Game over</Text>
+          <Text style={styles.summary}>You got {`${score}% correct answers.`}</Text>
+          <TouchableOpacity 
+            onPress={() => this.handleStartOver()}
+            style={[Platform.OS === 'ios' 
+              ? styles.iosSubmitBtn 
+              : styles.androidPrimaryBtn
+            ,{marginTop: 28}]}
+          >
+            <Text style={styles.textBtn}>Restart Quiz</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.handleBack()}>
-            <Text>Back to Deck</Text>
+          <TouchableOpacity 
+            onPress={() => this.handleBack()}
+            style={[Platform.OS === 'ios' 
+              ? styles.iosSubmitBtn 
+              : styles.androidPrimaryBtn
+            ,{marginTop: 28}]}
+          >
+            <Text style={styles.textBtn}>Back to Deck</Text>
           </TouchableOpacity>
         </View>
       )
@@ -97,14 +110,14 @@ class Quiz extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>        
         <Text style={styles.title}>{currQuestion.question}</Text>
+        {this.state.showAnswer && <Text style={[styles.answer]}>{currQuestion.answer}</Text>}
         <Text style={styles.textMuted}>{`${currQuestionPos}/${totalNumQuestions}`}</Text>
-        {this.state.showAnswer && <Text style={[styles.answer, {marginTop: 12}]}>{currQuestion.answer}</Text>}
         {this.state.showAnswer && <TouchableOpacity 
           onPress={() => this.handleSubmitAnswer('correct')}
           style={[Platform.OS === 'ios' 
             ? styles.iosSubmitBtn 
             : styles.androidPrimaryBtn
-          ,{backgroundColor: success, marginTop: 120}]}
+          ,{backgroundColor: success, marginTop: 80}]}
         >
           <Text style={styles.textBtn}>Correct</Text>
         </TouchableOpacity>}
@@ -155,7 +168,21 @@ const styles = StyleSheet.create({
     marginTop:8
   },
   title: {
-    fontSize: 42,    
+    fontSize: 36,    
+    width:'80%',
+    textAlign:'center',
+    marginBottom: 80
+  },
+  gameOver: {
+    fontSize: 36,    
+    width:'80%',
+    textAlign:'center',
+  },
+  summary: {
+    fontSize: 26,
+    width:'80%',
+    textAlign:'center',
+    color: primaryLight
   },
   textBtn: {    
     fontSize:20,
