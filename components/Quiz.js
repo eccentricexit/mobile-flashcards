@@ -41,7 +41,7 @@ class Quiz extends Component {
       showAnswer: false
     })
 
-    if(currentQuestionPos+1 === deck.questions.length){
+    if(currQuestionPos+1 === deck.questions.length){
       await updateNotif()
     }
   }
