@@ -98,13 +98,13 @@ class Quiz extends Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>        
         <Text style={styles.title}>{currQuestion.question}</Text>
         <Text style={styles.textMuted}>{`${currQuestionPos}/${totalNumQuestions}`}</Text>
-        {this.state.showAnswer && <Text>{currQuestion.answer}</Text>}
+        {this.state.showAnswer && <Text style={[styles.answer, {marginTop: 12}]}>{currQuestion.answer}</Text>}
         <TouchableOpacity 
           onPress={() => this.handleSubmitAnswer('yes')}
           style={[Platform.OS === 'ios' 
             ? styles.iosSubmitBtn 
             : styles.androidPrimaryBtn
-          ,{backgroundColor: success}]}
+          ,{backgroundColor: success, marginTop: 120}]}
         >
           <Text style={styles.textBtn}>Yes</Text>
         </TouchableOpacity>        
@@ -164,9 +164,11 @@ const styles = StyleSheet.create({
   },
   textMuted: {
     fontSize: 22,    
-    marginBottom:120,
     textAlign: 'center',
     color: primaryLight
+  },
+  answer: {
+    fontSize: 22    
   }
 })
 
