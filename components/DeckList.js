@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
 import { initStorage, isStorageInitialized, getState } from '../utils'
-import { primary, primaryText, white } from '../utils/colors'
+import { primary, primaryText, white, primaryLight } from '../utils/colors'
 import { 
   TouchableOpacity,
   FlatList,
@@ -90,7 +90,7 @@ const DeckListItem = (props) => {
         style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidPrimaryBtn}
         onPress={() => props.navigation.push('NewDeck')}
       >
-        <Text style={styles.newDeck}>New Deck</Text>
+        <Text style={styles.newDeck}> ➕ New Deck</Text>
       </TouchableOpacity>
     )
   }
@@ -104,6 +104,7 @@ const DeckListItem = (props) => {
       onPress={() => props.navigation.push('Deck',{ deck })}
     >
       <Text style={styles.deck}>{deck.name}</Text>
+      <Text style={styles.textMuted}>{deck.questions.length} cards</Text>
     </TouchableOpacity>
   )
 }
@@ -148,6 +149,11 @@ const styles = StyleSheet.create({
   deck: {
     fontSize: 22,
     textAlign: 'center',
+  },
+  textMuted: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: primaryLight
   },
   separator: {
     height: 1,
