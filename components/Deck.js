@@ -33,7 +33,9 @@ class Deck extends Component {
         <Text>Hello from Deck. This is {deck.name}</Text>
         <Text>{deck.questions ? deck.questions.length : 0} cards</Text>
         <Button title='Add Card' onPress={this.handleAddCard}/>
-        <Button title='Start Quiz' onPress={this.handleStartQuiz}/>
+        { deck.questions.length > 0 && 
+          <Button title='Start Quiz' onPress={this.handleStartQuiz}/>
+        }
       </View>
     )
   }
