@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setState } from '../actions'
-import { primary, primaryText, primaryLight, white } from '../utils/colors'
+import { primary, primaryLight, white } from '../utils/colors'
 import { 
   TouchableOpacity,
   FlatList,
@@ -48,9 +48,9 @@ class Deck extends Component {
     const deck = state[deckName]
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={styles.deckTitle}>📔</Text>
         <Text style={styles.deckTitle}>{deck.name}</Text>
-        <Text style={styles.cardCount}>{deck.questions ? deck.questions.length : 0} cards</Text>
-
+        <Text style={styles.cardCount}>{deck.questions ? deck.questions.length : 0} cards</Text>        
         <TouchableOpacity 
           onPress={this.handleAddCard}
           style={Platform.OS === 'ios' 
@@ -88,25 +88,6 @@ class Deck extends Component {
   }
 }
 
-const androidPrimaryBtn = {
-  backgroundColor: primary,
-  padding: 10,
-  paddingLeft: 30,
-  paddingRight: 30,
-  width:250,
-  height: 84,
-  borderRadius: 4,
-  justifyContent: 'center',
-  alignItems: 'stretch',
-  elevation:2,
-  marginBottom:16
-}
-
-const androidSecondaryBtn = {
-  ...androidPrimaryBtn,
-  backgroundColor: white,  
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -117,8 +98,19 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     height: 45,    
   },
-  androidPrimaryBtn,
-  androidSecondaryBtn,  
+  androidPrimaryBtn: {
+    backgroundColor: primary,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width:250,
+    height: 84,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    elevation:2,
+    marginBottom:16
+  }, 
   deckTitle:{
     fontSize: 42,
     marginBottom: 12    
@@ -126,7 +118,7 @@ const styles = StyleSheet.create({
   cardCount:{
     fontSize: 22,
     color: primaryLight,
-    marginBottom:120
+    marginBottom:100
   }
 })
 
