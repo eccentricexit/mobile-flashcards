@@ -2,6 +2,8 @@
 
 > Build and decks and play with flashcards to test your knowledge.
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
 ## Install
 
 ```
