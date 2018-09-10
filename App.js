@@ -32,7 +32,9 @@ class App extends Component {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
     console.info('permission status:',status)
     if(status === 'undetermined'){
-      await askNotifPermissionStatus()
+      if(await askNotifPermissionStatus() !== 'granted'){
+        alert("You won't receive any notifications.")
+      }
     }else if (status === 'granted') {      
       console.info('notifId',await updateNotif())
     }
