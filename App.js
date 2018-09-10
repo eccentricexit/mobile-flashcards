@@ -11,7 +11,6 @@ import { Provider } from 'react-redux'
 import { askNotifPermissionStatus, updateNotif } from './utils'
 import { Permissions } from 'expo'
 
-
 const store = createStore(reducer)
 
 const RootStack = createStackNavigator(
@@ -30,13 +29,13 @@ const RootStack = createStackNavigator(
 class App extends Component {
   async componentDidMount () {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-    console.info('permission status:',status)
-    if(status === 'undetermined'){
-      if(await askNotifPermissionStatus() !== 'granted'){
+    console.info('permission status:', status)
+    if (status === 'undetermined') {
+      if (await askNotifPermissionStatus() !== 'granted') {
         alert("You won't receive any notifications.")
       }
-    }else if (status === 'granted') {      
-      console.info('notifId',await updateNotif())
+    } else if (status === 'granted') {
+      console.info('notifId', await updateNotif())
     }
   }
 

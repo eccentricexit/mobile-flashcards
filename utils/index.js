@@ -10,34 +10,34 @@ export const askNotifPermissionStatus = async () => {
 
 const quizNotification = {
   title: 'Daily reminder',
-  body: 'Just reminding you to complete at least one quiz today. :)',    
+  body: 'Just reminding you to complete at least one quiz today. :)',
   android: {
-      sound: true,        
-      sticky: false,
-      vibrate: true,
+    sound: true,
+    sticky: false,
+    vibrate: true
   },
   ios: {
     sound: true,
     sticky: false,
-    vibrate: true,
+    vibrate: true
   }
 }
 
 export const updateNotif = async () => {
-  if(await !askNotifPermissionStatus()){
+  if (await !askNotifPermissionStatus()) {
     console.warn('No permission to use notifications')
     return
   }
 
-  //cancel any existing notifications
+  // cancel any existing notifications
   await Notifications.cancelAllScheduledNotificationsAsync()
-  const future = (new Date()).getTime() + 24*60*60*1000
+  const future = (new Date()).getTime() + 24 * 60 * 60 * 1000
 
   return await Notifications.scheduleLocalNotificationAsync(
     quizNotification,
     {
-        time: future,
-        repeat: 'day',
+      time: future,
+      repeat: 'day'
     }
   )
 }
